@@ -44,9 +44,8 @@ connection.on("ReceiveMessage", function (user, message) {
     container.appendChild(chatMsg);    
    
     chat.appendChild(container);
-    document.getElementById("messageInput").value = "";
-    document.getElementById("messageInput").focus();
-    window.location.reload();
+    document.getElementById("messageInput").value = "";    
+    window.location.reload();    
 });
 
 connection.start().then(function () {
@@ -55,18 +54,18 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
+document.getElementById("sendButton").addEventListener("click", function (event) {    
     var user = document.getElementById("hdUserName").value;
     var message = document.getElementById("messageInput").value;
     if (message.trim() != "" && message != undefined) {
+        $('#nomessage').hide();
         connection.invoke("SendMessage", user, message).catch(function (err) {
             return console.error(err.toString());
         });
         if (message.toLowerCase().indexOf("/stock=") == -1) {
             SaveMessage(message);
         }
-        event.preventDefault();
-        window.scrollTo(0, document.body.scrollHeight);
+        event.preventDefault();        
     }   
 });
 
@@ -88,4 +87,5 @@ document.getElementById("messageInput").addEventListener("keypress", function (e
     }
 });
 
+document.getElementById("messageInput").focus();
 window.scrollTo(0, document.body.scrollHeight);

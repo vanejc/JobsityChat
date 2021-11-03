@@ -3,12 +3,13 @@
     var userName = User.Identity.Name;
 }
 <input type="hidden" id="hdUserName" value="@userName" />
-@if (Model.Any())
-{<div class="row h-100">
-        <div class="col-md-12 h-100">
-            <div class="box box-primary direct-chat direct-chat-primary h-100">
-                <div class="box-body h-100">
-                    <div id="chat" class="direct-chat-messages h-100">
+<div class="row h-100">
+    <div class="col-md-12 h-100">
+        <div class="box box-primary direct-chat direct-chat-primary h-100">
+            <div class="box-body h-100">
+                <div id="chat" class="direct-chat-messages h-100">
+                    @if (Model.Any())
+                    {
 
                         @foreach (var message in Model)
                         {
@@ -40,23 +41,24 @@
                             }
                         }
 
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <div class="input-group">
-                        <input type="text" id="messageInput" placeholder="Type Message..." class="form-control">
-                        <span class="input-group-btn">
-                            <button id="sendButton" type="button" class="btn btn-primary btn-flat">Send</button>
-                        </span>
-                    </div>
+
+                    }
+                    else
+                    {
+                        <div id="nomessage" class="alert alert-danger">No Messages.</div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-}
-else
-{
-    <div class="alert alert-danger">No Messages.</div>
-}
+</div>
+<div class="box-footer">
+    <div class="input-group">
+        <input type="text" id="messageInput" placeholder="Type Message..." class="form-control">
+        <span class="input-group-btn">
+            <button id="sendButton" type="button" class="btn btn-primary btn-flat">Send</button>
+        </span>
+    </div>
+</div>
 <script src="~/js/signalr.min.js"></script>
 <script src="~/js/chat.js"></script>
